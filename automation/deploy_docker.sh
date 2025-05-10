@@ -17,8 +17,13 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 function install_docker() {
-	echo "installing Docker"
-	curl -fsSL https://get.docker.com | bash
+    if command -v docker &> /dev/null; then
+        echo "Docker is already installed."
+    else
+        echo "Installing Docker..."
+        curl -fsSL https://get.docker.com | bash
+        echo "Docker installed successfully."
+    fi
 }
 
 function clone_project() {
