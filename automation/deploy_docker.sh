@@ -26,6 +26,21 @@ function install_docker() {
     fi
 }
 
+function generate_ssl_cert() {
+    SSL_DIR="$TARGET_DIR/automation/ssl"
+
+    echo "Generating self-signed SSL certificate..."
+
+    mkdir -p "$SSL_DIR"
+
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+        -keyout "$SSL_DIR/selfsigned.key" \
+        -out "$SSL_DIR/selfsigned.crt" \
+        -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
+
+    echo "SSL certificate generated at $SSL_DIR"
+}
+
 function clone_project() {
     mkdir -p "$PROJECTS_DIR"
     if [ -d "$TARGET_DIR" ]; then
@@ -47,6 +62,7 @@ function start_docker_compose() {
 main() {
     install_docker
     clone_project
+    generate_ssl_cert
     start_docker_compose
 }
 
