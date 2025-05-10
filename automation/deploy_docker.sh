@@ -35,7 +35,7 @@ function clone_project() {
 function start_docker_compose() {
     echo "Starting Docker Compose..."
     cd "$TARGET_DIR"
-    docker-compose up -d --build
+    docker compose up -d --build
     echo "App is running at http://localhost"
 }
 
