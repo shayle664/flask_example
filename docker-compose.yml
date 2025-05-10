@@ -14,7 +14,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./automation/default_site.tmpl:/etc/nginx/conf.d/default.conf
+      - ./automation/ssl:/etc/nginx/ssl
     depends_on:
       - flask_app
     restart: unless-stopped
